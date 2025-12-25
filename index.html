@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Iduyhaw & Iat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #c5a059;
+            --dark-gold: #a67c00;
+            --bg-light: #fdfbf7;
+            --text-main: #333;
+            --text-muted: #666;
+            --accent-color: #118ee1; /* Reused for DANA */
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1100;
+            width: 50px;
+            height: 50px;
+            background: rgba(197, 160, 89, 0.9);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        .music-control.playing {
+            animation: rotate 5s linear infinite;
+        }
+
+        .music-control i {
+            font-size: 1.2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-romantic {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--dark-gold);
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        /* Hero Overlay */
+        #hero {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/id/55/1600/900') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: white;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        #hero.unlock {
+            transform: translateY(-100%);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-gold);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+        }
+        .btn:hover { 
+            background: var(--dark-gold); 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+        }
+        .btn:active { transform: scale(0.98); }
+
+        /* ATM Card Styles */
+        .atm-card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .atm-card {
+            width: 100%;
+            max-width: 380px;
+            height: 220px;
+            border-radius: 15px;
+            position: relative;
+            padding: 25px;
+            color: white;
+            text-align: left;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+        }
+
+        .atm-card:hover { transform: scale(1.02); }
+
+        .card-chip {
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-logo {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            height: 30px;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .card-number {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .card-holder {
+            margin-top: 30px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .card-label {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            margin-bottom: 2px;
+            font-family: sans-serif;
+        }
+
+        /* Patterns */
+        .pattern-dana { background: linear-gradient(135deg, #118ee1 0%, #005691 100%); }
+        .pattern-bca { background: linear-gradient(135deg, #0056a3 0%, #003a6f 100%); }
+        .pattern-mandiri { background: linear-gradient(135deg, #1c2c5b 0%, #2f4476 100%); }
+
+        .copy-card-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Gallery Styles */
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover .gallery-img { transform: scale(1.1); }
+        .gallery-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s; color: white; font-size: 2rem;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Sections */
+        .section-title {
+            margin-bottom: 40px;
+        }
+
+        .couple-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .couple-box {
+            flex: 1;
+            min-width: 280px;
+            padding: 20px;
+        }
+
+        .couple-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .couple-name {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+        }
+
+        .event-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            border-top: 5px solid var(--primary-gold);
+        }
+
+        .event-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .info-item h3 {
+            color: var(--dark-gold);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .countdown-item {
+            background: var(--primary-gold);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .countdown-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .countdown-item label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Map & Guest Book Enhancements */
+        .map-wrapper {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .guestbook-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .guestbook-name {
+            font-weight: 600;
+            color: var(--dark-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .attendance-badge {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: #eee;
+        }
+
+        .badge-hadir { background: #e8f5e9; color: #2e7d32; }
+        .badge-ragu { background: #fff3e0; color: #ef6c00; }
+        .badge-tidakhadir { background: #ffebee; color: #c62828; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .couple-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .event-info {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .countdown-item span {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 15px;
+                padding: 10px 0 20px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Hide scrollbar Firefox */
+            }
+            .gallery-grid::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+
+            .gallery-item {
+                flex: 0 0 80%;
+                scroll-snap-align: center;
+                height: 300px;
+            }
+
+            .atm-card-container {
+                flex-direction: row;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 20px;
+                padding: 10px 10px 30px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .atm-card-container::-webkit-scrollbar { display: none; }
+
+            .atm-card {
+                flex: 0 0 90%;
+                scroll-snap-align: center;
+                max-width: none;
+                height: auto;
+                aspect-ratio: 1.6/1;
+                padding: 15px;
+            }
+
+            .card-number {
+                font-size: 1.1rem;
+            }
+
+            .card-chip {
+                width: 40px;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+
+            .container {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hero">
+        <h3 class="hero-subtitle">The Wedding Of</h3>
+        <h1 class="hero-title">Iduyhaw & Iat</h1>
+        <div id="guest-greeting" style="margin-bottom: 20px; display: none;">
+            <p style="font-size: 1.1rem; margin-bottom: 5px;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h4 id="guest-name" style="font-size: 1.8rem; font-weight: 600; color: var(--primary-gold);"></h4>
+        </div>
+        <p style="margin-bottom: 20px; max-width: 80%; line-height: 1.6;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia pernikahan kami.</p>
+        <button class="btn" onclick="openInvitation()">Buka Undangan</button>
+    </div>
+
+    <!-- Background Music -->
+    <div id="player-container" style="display: none;">
+        <div id="player"></div>
+    </div>
+    
+    <div id="music-btn" class="music-control" onclick="toggleMusic()">
+        🎵
+    </div>
+
+    <div class="container" id="main-content">
+        <section class="intro-section" style="margin-bottom: 60px;">
+            <p style="font-style: italic; color: var(--text-muted); line-height: 1.8; max-width: 700px; margin: 0 auto 30px;">
+                "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+                <br><strong>(QS. Ar-Rum: 21)</strong>
+            </p>
+            <p style="margin-bottom: 20px;">Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
+            <p>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
+        </section>
+
+        <section class="couple-section">
+            <h2 class="section-title">Kedua Mempelai</h2>
+            <div class="couple-container">
+                <div class="couple-box">
+                    <img src="../Pertemuan_14/image/wahyu.png" alt="Iduyhaw" class="couple-img">
+                    <h3 class="couple-name">Iduyhaw</h3>
+                    <p style="font-weight: 600;">Putra dari</p>
+                    <p>Bpk. Fulan & Ibu Fulana</p>
+                </div>
+                <div class="font-romantic" style="font-size: 3rem; color: var(--primary-gold);">&</div>
+                <div class="couple-box">
+                    <img src="../Pertemuan_14/image/jihyo.png" alt="Iat" class="couple-img">
+                    <h3 class="couple-name">Iat</h3>
+                    <p style="font-weight: 600;">Putri dari</p>
+                    <p>Bpk. Fulan & Ibu Fulana</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="event-section">
+            <div class="event-card">
+                <h2>Waktu & Tempat</h2>
+                <p style="margin-bottom: 30px;">Insya Allah acara akan dilaksanakan pada:</p>
+                <div class="event-info">
+                    <div class="info-item">
+                        <h3>Akad Nikah</h3>
+                        <p style="font-weight: 600;">Minggu, 12 Oktober 2026</p>
+                        <p>Pukul 08.00 - 10.00 WIB</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Resepsi</h3>
+                        <p style="font-weight: 600;">Minggu, 12 Oktober 2026</p>
+                        <p>Pukul 11.00 - Selesai</p>
+                    </div>
+                </div>
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd;">
+                    <p style="font-weight: 600; color: var(--dark-gold); font-size: 1.2rem;">Gedung Pernikahan Indah</p>
+                    <p style="color: var(--text-muted);">Jl. Kenangan No. 123, Kota Bahagia</p>
+                </div>
+                <div class="map-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7935.529396724531!2d105.98599874778185!3d-6.027001259575773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1766071875504!5m2!1sen!2sid" 
+                    width="100%" 
+                    height="100%"
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=-6.02525,105.990167" target="_blank" class="btn">Buka Google Maps</a>
+                </div>
+            </div>
+
+            <div class="countdown-container" id="countdown">
+                <div class="countdown-item"><span id="days">00</span><label>Hari</label></div>
+                <div class="countdown-item"><span id="hours">00</span><label>Jam</label></div>
+                <div class="countdown-item"><span id="minutes">00</span><label>Menit</label></div>
+                <div class="countdown-item"><span id="seconds">00</span><label>Detik</label></div>
+            </div>
+        </section>
+
+        <hr style="margin: 60px 0; border: 0; border-top: 1px solid #eee;">
+
+        <section class="gallery-section">
+            <h2>Wedding Gallery</h2>
+            <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="../Pertemuan_14/image/wedding1.png" alt="Gallery 1" class="gallery-img">
+            <div class="gallery-overlay">✨</div>
+        </div>
+        <div class="gallery-item">
+            <img src="../Pertemuan_14/image/wedding1.png" alt="Gallery 2" class="gallery-img">
+            <div class="gallery-overlay">📸</div>
+        </div>
+        <div class="gallery-item">
+            <img src="../Pertemuan_14/image/wahyu.png" alt="Gallery 3" class="gallery-img">
+            <div class="gallery-overlay">💍</div>
+        </div>
+         <div class="gallery-item">
+            <img src="https://picsum.photos/id/40/800/800" alt="Gallery 4" class="gallery-img">
+            <div class="gallery-overlay">💍</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://picsum.photos/id/50/800/800" alt="Gallery 5" class="gallery-img">
+            <div class="gallery-overlay">💍</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://picsum.photos/id/60/800/800" alt="Gallery 6" class="gallery-img">
+            <div class="gallery-overlay">💍</div>
+        </div>
+        </section>
+
+        <section class="gift-section">
+            <hr style="margin: 60px 0; border: 0; border-top: 1px solid #ff3d3d;">
+            <h2>Wedding Gift</h2>
+            <p style="margin-bottom: 30px;">Tanpa mengurangi rasa hormat, bagi Anda yang ingin memberikan tanda kasih untuk kami, dapat melalui:</p>
+
+            <div class="atm-card-container">
+                <div class="atm-card pattern-dana">
+                    <div class="card-chip"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/1200px-Logo_dana_blue.svg.png" alt="DANA" class="card-logo" style="height: 50px; width: auto; top: 15px; right: 15px;">
+                    <div class="card-label">Nomor DANA</div>
+                    <div class="card-number">0812 3456 7890</div>
+                    <div class="card-holder">
+                        <div class="card-label">Account Holder</div>
+                        Iduyhaw
+                    </div>
+                    <button class="copy-card-btn" onclick="copyText('081234567890')">Salin Nomor</button>
+                </div>
+
+                <div class="atm-card pattern-bca">
+                    <div class="card-chip"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png" alt="BCA" class="card-logo" style="height: 50px; width: auto; top: 15px; right: 15px;">
+                    <div class="card-label">Nomor Rekening</div>
+                    <div class="card-number">123 456 7890</div>
+                    <div class="card-holder">
+                        <div class="card-label">Account Holder</div>
+                        Ait
+                    </div>
+                    <button class="copy-card-btn" onclick="copyText('1234567890')">Salin No. Rek</button>
+                </div>
+
+                <div class="atm-card pattern-mandiri">
+                    <div class="card-chip"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/2560px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri" class="card-logo" style="height: 50px; width: auto; top: 15px; right: 15px;">
+                    <div class="card-label">Nomor Rekening</div>
+                    <div class="card-number">098 765 4321</div>
+                    <div class="card-holder">
+                        <div class="card-label">Account Holder</div>
+                        Iduyhaw
+                    </div>
+                    <button class="copy-card-btn" onclick="copyText('0987654321')">Salin No. Rek</button>
+                </div>
+               
+        </section>
+
+        <section class="rsvp-section" style="margin-top: 80px; background: #fff; padding: 40px; border-radius: 20px;">
+            <h2 class="section-title">Ucapan & RSVP</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.</p>
+            <form id="rsvp-form" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px;">Nama Lengkap</label>
+                    <input type="text" id="name" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px;">Ucapan & Doa Restu</label>
+                    <textarea id="message" rows="4" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px;">Konfirmasi Kehadiran</label>
+                    <select id="attendance" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                        <option value="Masih Ragu">Masih Ragu</option>
+                    </select>
+                </div>
+                <button type="button" class="btn" style="width: 100%;" onclick="sendGreeting()">Kirim Ucapan</button>
+            </form>
+            <div id="greetings-display" style="margin-top: 40px; text-align: left;">
+                <!-- Greetings will appear here -->
+            </div>
+        </section>
+
+        <footer style="margin-top: 80px; padding: 40px; color: var(--text-muted); font-size: 0.9rem;">
+            <p>&copy; 2025 Iduyhaw & Iat Wedding Invitation</p>
+            <p>Made with ❤️ for a special day</p>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame API Load
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 's8_11kY25d0',
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 's8_11kY25d0'
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready
+        }
+
+        function toggleMusic() {
+            const btn = document.getElementById('music-btn');
+            if (isPlaying) {
+                player.pauseVideo();
+                btn.classList.remove('playing');
+                btn.innerHTML = '🔇';
+            } else {
+                player.playVideo();
+                btn.classList.add('playing');
+                btn.innerHTML = '🎵';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function openInvitation() {
+            document.getElementById('hero').classList.add('unlock');
+            document.body.style.overflow = 'auto';
+            document.getElementById('music-btn').style.display = 'flex';
+            
+            // Start music
+            if (player && !isPlaying) {
+                toggleMusic();
+            }
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.createElement('div');
+                toast.innerText = "Nomor berhasil disalin: " + text;
+                toast.style.cssText = "position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px 20px; border-radius:20px; z-index:2000;";
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+
+        function sendGreeting() {
+            const name = document.getElementById('name').value;
+            const msg = document.getElementById('message').value;
+            const att = document.getElementById('attendance').value;
+
+            if(!name || !msg) return alert('Mohon isi nama dan ucapan');
+
+            // Construct WhatsApp Message
+            const phone = "6281234567890"; // Ganti dengan nomor mempelai
+            const waText = `Halo Iduyhaw & Iat,\n\nNama: ${name}\nKehadiran: ${att}\nUcapan: ${msg}\n\nTerima kasih!`;
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
+
+            // UI Update (Guest Book)
+            const badgeClass = att === 'Hadir' ? 'badge-hadir' : (att === 'Tidak Hadir' ? 'badge-tidakhadir' : 'badge-ragu');
+            const greeting = document.createElement('div');
+            greeting.className = 'guestbook-item';
+            greeting.innerHTML = `
+                <div class="guestbook-name">
+                    <span>${name}</span>
+                    <span class="attendance-badge ${badgeClass}">${att}</span>
+                </div>
+                <p style="margin-top:10px; color:#555; line-height:1.6;">${msg}</p>
+            `;
+            
+            document.getElementById('greetings-display').prepend(greeting);
+            document.getElementById('rsvp-form').reset();
+
+            // Redirect to WhatsApp after short delay
+            setTimeout(() => {
+                if(confirm("Buka WhatsApp untuk mengirim ucapan secara personal?")) {
+                    window.open(waUrl, '_blank');
+                }
+            }, 500);
+        }
+
+        // Countdown Timer Logic
+        const weddingDate = new Date("Oct 12, 2026 08:00:00").getTime();
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "HAPPY WEDDING!";
+            }
+        }, 1000);
+
+        // Parse URL parameters for Guest Name
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guest = urlParams.get('to');
+            if (guest) {
+                const guestNameElement = document.getElementById('guest-name');
+                const guestGreetingElement = document.getElementById('guest-greeting');
+                guestNameElement.innerText = guest;
+                guestGreetingElement.style.display = 'block';
+                
+                // Pre-fill RSVP name if they use the link
+                const rsvpNameInput = document.getElementById('name');
+                if (rsvpNameInput) {
+                    rsvpNameInput.value = guest;
+                }
+            }
+        });
+
+        // Lock scroll initially for hero
+        document.body.style.overflow = 'hidden';
+    </script>
+</body>
+</html>
