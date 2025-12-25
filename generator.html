@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Undangan Otomatis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Generator Link Undangan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Tamu</label>
+                        <input type="text" id="namaTamu" class="form-control" placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nomor WhatsApp</label>
+                        <input type="text" id="noWA" class="form-control" placeholder="628123456789">
+                        <small class="text-muted">Gunakan format 62 (bukan 0)</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Link Undangan Anda</label>
+                        <input type="text" id="linkUndangan" class="form-control" value="https://wahyudiajav-arch.github.io/undangan_ku/">
+                    </div>
+                    <button onclick="generateAndSend()" class="btn btn-success w-100">Kirim via WhatsApp</button>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-white rounded shadow-sm">
+                <h6>Link Hasil:</h6>
+                <p id="result" class="text-break"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateAndSend() {
+    // Ambil data dari input
+    const nama = document.getElementById('namaTamu').value;
+    const nomor = document.getElementById('noWA').value;
+    const linkBase = document.getElementById('linkUndangan').value;
+
+    if(nama === "" || nomor === "") {
+        alert("Mohon isi nama dan nomor WA!");
+        return;
+    }
+
+    // Buat link undangan dinamis (dengan parameter nama)
+    const linkFinal = `${linkBase}?to=${encodeURIComponent(nama)}`;
+
+    // Buat pesan teks WhatsApp
+    const pesan = `Halo *${nama}*,%0A%0AKami mengundang Anda untuk hadir di acara kami. Silakan cek detail undangan pada link di bawah ini:%0A%0A${linkFinal}%0A%0ATerima kasih.`;
+
+    // Gabungkan dengan API WhatsApp
+    const waUrl = `https://wa.me/${nomor}?text=${pesan}`;
+
+    // Tampilkan link untuk pengecekan
+    document.getElementById('result').innerHTML = `<a href="${waUrl}" target="_blank">${waUrl}</a>`;
+
+    // Buka WhatsApp di tab baru
+    window.open(waUrl, '_blank');
+}
+</script>
+
+</body>
+</html>
