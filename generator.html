@@ -3,71 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Undangan Otomatis</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Link Generator - Iduyhaw & Iat Wedding</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-gold: #c5a059;
+            --dark-gold: #8d6e35;
+            --bg-light: #fdfbf7;
+            --text-main: #2c2c2c;
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 20px 60px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Batik Background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm66-3c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-46-45c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm20-17c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm18 52c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-46 1c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-8-36c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm34 2c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-12-11c.828 0 1.5-.672 1.5-1.5S63.828 32 63 32s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm18 43c.828 0 1.5-.672 1.5-1.5S81.828 74 81 74s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm-54-48c.828 0 1.5-.672 1.5-1.5S27.828 26 27 26s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm42 56c.828 0 1.5-.672 1.5-1.5S70.828 76 70 76s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zM42 41c.828 0 1.5-.672 1.5-1.5S42.828 38 42 38s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm-26 42c.828 0 1.5-.672 1.5-1.5S16.828 80 16 80s-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm2-46c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm40 40c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm4-34c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-24 44c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-6-40c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm42 32c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-6-24c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm0 36c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-24-30c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm8-18c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm24 16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm0 16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-44-32c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm12 36c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm8-44c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm20 32c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm32-16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM28 84c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm16 6c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-22-4c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm52-4c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm4-16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm12 16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-16-12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-44 16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm12 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm24-8c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-24-2c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm24-4c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-16-24c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm4 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-28 4c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm44-12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm16 28c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-72 16c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm80-36c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-8-32c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-32-4c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM20 74c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm36 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm26-8c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-6-20c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM2 90c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm12 8c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zM2 2c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm6 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm24 6c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z' fill='%23c5a059' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-size: 300px;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .generator-card {
+            width: 100%;
+            max-width: 550px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.5);
+            text-align: center;
+            z-index: 10;
+        }
+
+        header {
+            margin-bottom: 45px;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--dark-gold);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            text-align: left;
+            position: relative;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--dark-gold);
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-gold);
+            opacity: 0.6;
+            width: 18px;
+            height: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 20px 18px 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary-gold);
+            background: white;
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: var(--dark-gold);
+            margin-top: 8px;
+            padding-left: 5px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 15px;
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(197, 160, 89, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .result-container {
+            margin-top: 45px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 25px;
+            border: 2px dashed rgba(197, 160, 89, 0.4);
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .result-container.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--dark-gold);
+            font-weight: 800;
+        }
+
+        .link-box {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--primary-gold);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            position: relative;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-outline {
+            padding: 15px;
+            border: 2px solid var(--primary-gold);
+            background: transparent;
+            color: var(--primary-gold);
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .generator-card {
+                padding: 45px 25px;
+            }
+            h1 {
+                font-size: 3.2rem;
+            }
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Generator Link Undangan</h5>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label">Nama Tamu</label>
-                        <input type="text" id="namaTamu" class="form-control" placeholder="Contoh: Budi Santoso">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nomor WhatsApp</label>
-                        <input type="text" id="noWA" class="form-control" placeholder="628123456789">
-                        <small class="text-muted">Gunakan format 62 (bukan 0)</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Link Undangan Anda</label>
-                        <input type="text" id="linkUndangan" class="form-control" value="https://wahyudiajav-arch.github.io/undangan_ku/">
-                    </div>
-                    <button onclick="generateAndSend()" class="btn btn-success w-100">Kirim via WhatsApp</button>
-                </div>
+<div class="generator-card">
+    <header>
+        <h1>Undangan</h1>
+        <span class="subtitle">Link Generator</span>
+    </header>
+    
+    <div class="form-container">
+        <div class="form-group">
+            <label><i data-lucide="user"></i> Nama Tamu</label>
+            <div class="input-wrapper">
+                <i data-lucide="user"></i>
+                <input type="text" id="namaTamu" placeholder="Contoh: Budi Santoso">
             </div>
+        </div>
 
-            <div class="mt-4 p-3 bg-white rounded shadow-sm">
-                <h6>Link Hasil:</h6>
-                <p id="result" class="text-break"></p>
+        <div class="form-group">
+            <label><i data-lucide="phone"></i> Nomor WhatsApp</label>
+            <div class="input-wrapper">
+                <i data-lucide="phone"></i>
+                <input type="text" id="noWA" placeholder="628123456789">
             </div>
+            <span class="helper-text">Format diawali 62 (contoh: 62812...)</span>
+        </div>
+
+        <div class="form-group">
+            <label><i data-lucide="link"></i> Link Base</label>
+            <div class="input-wrapper">
+                <i data-lucide="link"></i>
+                <input type="text" id="linkUndangan" value="https://wahyudiajav-arch.github.io/undangan_ku/">
+            </div>
+        </div>
+
+        <button onclick="generateAction()" class="btn-primary">
+            <i data-lucide="send"></i>
+            Buat & Kirim Undangan
+        </button>
+    </div>
+
+    <div id="result-container" class="result-container">
+        <span class="result-title">Link Berhasil Dibuat</span>
+        <div class="link-box" id="result-link"></div>
+        <div class="action-buttons">
+            <button onclick="copyToClipboard()" class="btn-outline">
+                <i data-lucide="copy"></i>
+                Salin Link
+            </button>
+            <a id="wa-link" href="#" target="_blank" class="btn-outline">
+                <i data-lucide="message-circle"></i>
+                Buka WhatsApp
+            </a>
         </div>
     </div>
 </div>
 
 <script>
-function generateAndSend() {
-    // Ambil data dari input
-    const nama = document.getElementById('namaTamu').value;
-    const nomor = document.getElementById('noWA').value;
-    const linkBase = document.getElementById('linkUndangan').value;
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-    if(nama === "" || nomor === "") {
-        alert("Mohon isi nama dan nomor WA!");
-        return;
+    let generatedWaUrl = "";
+
+    function generateAction() {
+        const nama = document.getElementById('namaTamu').value.trim();
+        const nomor = document.getElementById('noWA').value.trim();
+        const linkBase = document.getElementById('linkUndangan').value.trim();
+
+        if(!nama || !nomor) {
+            alert("⚠️ Harap isi nama tamu dan nomor WhatsApp!");
+            return;
+        }
+
+        // Validate number (basic)
+        if (!nomor.startsWith('62')) {
+            alert("⚠️ Nomor WhatsApp harus dimulai dengan 62");
+            return;
+        }
+
+        const linkFinal = `${linkBase}?to=${encodeURIComponent(nama)}`;
+        
+        // Message template
+        const pesan = `Assalamualaikum Warahmatullahi Wabarakatuh\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *${nama}* untuk menghadiri acara kami.\n\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n${linkFinal}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nMohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\nTerima kasih banyak atas perhatiannya.\n\nWassalamualaikum Warahmatullahi Wabarakatuh`;
+
+        generatedWaUrl = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+
+        // Show result
+        const container = document.getElementById('result-container');
+        const linkDisplay = document.getElementById('result-link');
+        const waButton = document.getElementById('wa-link');
+
+        linkDisplay.innerText = linkFinal;
+        waButton.href = generatedWaUrl;
+        container.classList.add('active');
+
+        // Optional: Auto open WA after delay
+        setTimeout(() => {
+            window.open(generatedWaUrl, '_blank');
+        }, 1000);
     }
 
-    // Buat link undangan dinamis (dengan parameter nama)
-    const linkFinal = `${linkBase}?to=${encodeURIComponent(nama)}`;
-
-    // Buat pesan teks WhatsApp
-    const pesan = `Halo *${nama}*,%0A%0AKami mengundang Anda untuk hadir di acara kami. Silakan cek detail undangan pada link di bawah ini:%0A%0A${linkFinal}%0A%0ATerima kasih.`;
-
-    // Gabungkan dengan API WhatsApp
-    const waUrl = `https://wa.me/${nomor}?text=${pesan}`;
-
-    // Tampilkan link untuk pengecekan
-    document.getElementById('result').innerHTML = `<a href="${waUrl}" target="_blank">${waUrl}</a>`;
-
-    // Buka WhatsApp di tab baru
-    window.open(waUrl, '_blank');
-}
+    async function copyToClipboard() {
+        const linkText = document.getElementById('result-link').innerText;
+        try {
+            await navigator.clipboard.writeText(linkText);
+            const btn = document.querySelector('button[onclick="copyToClipboard()"]');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="check"></i> Tersalin!';
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                lucide.createIcons();
+            }, 2000);
+        } catch (err) {
+            console.error('Gagal menyalin: ', err);
+            alert("Gagal menyalin link.");
+        }
+    }
 </script>
 
 </body>

@@ -565,6 +565,94 @@
                 transform: translateY(20px);
             }
         }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 20px 0;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--primary-gold);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            text-align: right;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--primary-gold);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .timeline-content h3 {
+            color: var(--dark-gold);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::after { left: 31px; }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                text-align: left;
+            }
+            .timeline-item.right { left: 0; }
+            .timeline-item::after { left: 21px; }
+        }
     </style>
 </head>
 <body>
@@ -687,6 +775,41 @@
             <img src="image/tu.png" alt="Gallery 4" class="gallery-img">
             <div class="gallery-overlay">💍</div>
         </div>
+        </section>
+
+        <section class="story-section reveal" style="margin-top: 80px;">
+            <hr style="margin-bottom: 60px; border: 0; border-top: 1px solid #eee;">
+            <h2>Our Love Story</h2>
+            <div class="timeline-container">
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Januari 2022</span>
+                        <h3>Pertama Bertemu</h3>
+                        <p>Awal mula kisah indah kami dimulai dari sebuah pertemuan yang tak disengaja, di mana pandangan pertama mengubah segalanya.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Maret 2023</span>
+                        <h3>Mulai Menjalin Ikatan</h3>
+                        <p>Kami menyadari bahwa kehadiran satu sama lain membawa kebahagiaan yang lengkap, dan memutuskan untuk melangkah bersama.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Juni 2024</span>
+                        <h3>Lamaran</h3>
+                        <p>Di bawah saksi keluarga dan kerabat terdekat, kami mengikat janji untuk melangkah ke jenjang yang lebih serius.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Oktober 2026</span>
+                        <h3>Hari Pernikahan</h3>
+                        <p>Dan hari ini, kami menyempurnakan ibadah kami dengan ikatan suci pernikahan di hadapan Allah SWT.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="gift-section reveal">
