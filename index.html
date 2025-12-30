@@ -22,9 +22,27 @@
             --shadow-gold: 0 10px 30px rgba(197, 160, 89, 0.2);
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--light-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
         }
 
         .music-control {
@@ -187,6 +205,10 @@
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 25px rgba(197, 160, 89, 0.4);
         }
+        .btn.pulse {
+            animation: pulse 2s infinite;
+        }
+
         .btn:active { transform: scale(0.98); }
 
         /* ATM Card Styles */
@@ -737,7 +759,7 @@
                 <h4 id="guest-name" style="font-size: 2.2rem; font-weight: 600; color: var(--light-gold); font-family: 'Alex Brush', cursive;"></h4>
             </div>
             <p style="margin: 0 auto 30px; max-width: 80%; line-height: 1.8; opacity: 0.9;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia pernikahan kami.</p>
-            <button class="btn" onclick="openInvitation()">Buka Undangan</button>
+            <button class="btn pulse" onclick="openInvitation()">Buka Undangan</button>
         </div>
     </div>
 
@@ -813,8 +835,9 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
-                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                     <a href="https://www.google.com/maps/search/?api=1&query=-6.02525,105.990167" target="_blank" class="btn">Buka Google Maps</a>
+                    <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=Pernikahan+Iduyhaw+%26+Iat&dates=20261012T010000Z/20261012T050000Z&details=Selamat+datang+di+hari+bahagia+kami.&location=Gedung+Pernikahan+Indah,+Cilegon" target="_blank" class="btn" style="background: #fff; color: var(--primary-gold); border: 1px solid var(--primary-gold);">Simpan Tanggal</a>
                 </div>
             </div>
 
@@ -885,7 +908,7 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
         </section>
 
         <section class="gift-section reveal">
-            <hr style="margin: 60px 0; border: 0; border-top: 1px solid #ff3d3d;">
+            <hr style="margin: 60px 0; border: 0; border-top: 1px solid var(--primary-gold); opacity: 0.3;">
             <h2>Wedding Gift</h2>
             <p style="margin-bottom: 30px;">Tanpa mengurangi rasa hormat, bagi Anda yang ingin memberikan tanda kasih untuk kami, dapat melalui:</p>
 
@@ -925,7 +948,7 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
                     </div>
                     <button class="copy-card-btn" onclick="copyText('0987654321')">Salin No. Rek</button>
                 </div>
-               
+            </div>
         </section>
 
         <section class="rsvp-section reveal" style="margin-top: 80px; background: #fff; padding: 40px; border-radius: 20px;">
@@ -1015,13 +1038,39 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
             }
         }
 
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: white;
+                color: var(--text-main);
+                padding: 15px 30px;
+                border-radius: 50px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                z-index: 9999;
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-left: 5px solid var(--primary-gold);
+                font-weight: 600;
+                pointer-events: none;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.transform = "translateX(-50%) translateY(0)";
+            }, 100);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(-50%) translateY(20px)";
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
         function copyText(text) {
             navigator.clipboard.writeText(text).then(() => {
-                const toast = document.createElement('div');
-                toast.innerText = "Nomor berhasil disalin: " + text;
-                toast.style.cssText = "position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px 20px; border-radius:20px; z-index:2000;";
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 2000);
+                showToast("Nomor berhasil disalin: " + text);
             }).catch(err => {
                 console.error('Gagal menyalin: ', err);
             });
@@ -1032,7 +1081,7 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
             const msg = document.getElementById('message').value;
             const att = document.getElementById('attendance').value;
 
-            if(!name || !msg) return alert('Mohon isi nama dan ucapan');
+            if(!name || !msg) return showToast('Mohon isi nama dan ucapan ya.. 🙏');
 
             // Construct WhatsApp Message
             const phone = "6281234567890"; // Ganti dengan nomor mempelai
@@ -1055,11 +1104,13 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
             document.getElementById('rsvp-form').reset();
 
             // Redirect to WhatsApp after short delay
+            showToast('Ucapan berhasil disimpan! Terima kasih sudah mendoakan kami. ✨');
+            
             setTimeout(() => {
                 if(confirm("Buka WhatsApp untuk mengirim ucapan secara personal?")) {
                     window.open(waUrl, '_blank');
                 }
-            }, 500);
+            }, 1000);
         }
 
         // Countdown Timer Logic
@@ -1121,6 +1172,22 @@ RT 001 RW 003, Kel. Kubangsari, Kec. Ciwandan, Kota Cilegon-Banten</p>
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Floating sparkles generator
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = '100vh';
+            const size = Math.random() * 8 + 4;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            sparkle.style.animation = `float ${Math.random() * 5 + 5}s linear forwards`;
+            sparkle.style.background = `rgba(197, 160, 89, ${Math.random() * 0.5 + 0.2})`;
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 10000);
+        }
+        setInterval(createSparkle, 1000);
 
         // Initialize Lucide Icons
         if (typeof lucide !== 'undefined') {
